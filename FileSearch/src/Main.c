@@ -2,7 +2,7 @@
  * Main.c
  *
  *  Created on: Oct 20, 2014
- *      Author: gwAwr
+ *      Author: awalls
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,8 +13,6 @@
 typedef int boolean;
 #define true 1;
 #define false 0;
-
-size_t getNumberOfLinesInFile(char *fileName);
 
 struct Node{
 	char word[MAX_WORD_SIZE];
@@ -73,8 +71,6 @@ void convertFile(char *fileName){
 		return;
 	}
 
-
-
 	do{
 		ch = fgetc(inputFile);
 		if(ch == ' '){
@@ -85,19 +81,14 @@ void convertFile(char *fileName){
 			fputc(ch, outputFile);
 		}
 
-	}while(ch != EOF);
+	} while(ch != EOF);
 
 	fclose(inputFile);
 	fclose(outputFile);
 }
 
-
-
-
-
 int main(){
 
-	char *fileName = "words.txt";
 	//printf("Indexing: %s ...\n", fileName);
 	convertFile("test.txt");
 	return 0;
