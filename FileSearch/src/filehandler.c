@@ -39,7 +39,7 @@ size_t getNumberOfLinesInFile(char *fileName){
  * Fix: find more elegant way of doing this
  * */
 boolean ignorableCharacter(char c){
-	if (c == '(' ||c == ')' ||c == '.' ||c == ',' ||c == ':' ||c == ';' ||c == '[' ||c == ']' ||c == '/' ||c == '!' ||c == '?' ||c == '\"' ||c == '\'' ||c == '/' ||c == '-' ||c == '@') return true;
+	if (c == '(' ||c == ')' || c == '\n' ||c == '.' ||c == ',' ||c == ':' ||c == ';' ||c == '[' ||c == ']' ||c == '/' ||c == '!' ||c == '?' ||c == '\"' ||c == '\'' ||c == '/' ||c == '-' ||c == '@') return true;
 	return false;
 }
 
@@ -53,31 +53,37 @@ void convertFile(char *fileName){
 	FILE *inputFile;
 	FILE *outputFile;
 
-	if(!fopen(fullFileName, "w")){
+	if(!(outputFile = fopen(fullFileName, "w"))){
 		printf("Error converting file: output file could not be opened.\n");
-		return;
+		perror(fullFileName);
 	}
 
-	if(!fopen(fileName, "r+")){
+	else if(!(inputFile = fopen(fileName, "r+"))){
 		printf("Error converting file: input file could not be opened.\n");
-		return;
+		perror(fileName);
 	}
+	else{
+		do{
+			ch = fgetc(inputFile);
+			if(ch == ' '){
+				fputc('\n', outputFile);
+			}
+			else if(!ignorableCharacter(ch)){
+				//write char to file
+				fputc(ch, outputFile);
+			}
 
-	do{
-		ch = fgetc(inputFile);
-		if(ch == ' '){
-			fputc('\n', outputFile);
-		}
-		else if(!ignorableCharacter(ch)){
-			//write char to file
-			fputc(ch, outputFile);
-		}
-
-	} while(ch != EOF);
-
+		} while(ch != EOF);
+	}
 	fclose(inputFile);
 	fclose(outputFile);
 }
 
+int main(){
+
+	//printf("Indexing: %s ...\n", fileName);
+	convertFile("test.txt");
+	return 0;
+}
 
 

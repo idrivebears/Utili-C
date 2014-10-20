@@ -21,14 +21,15 @@ struct Node{
 };
 
 struct Container{
-	struct Node lastElement;
+	struct Node *firstElement;
+	struct Node *lastElement;
 };
-
+/*
 int main(){
 
 	//printf("Indexing: %s ...\n", fileName);
 	convertFile("test.txt");
 	return 0;
-}
+}*/
 
 
