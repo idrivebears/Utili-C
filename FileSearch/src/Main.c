@@ -10,6 +10,10 @@
 
 #define MAX_WORD_SIZE 64
 
+typedef int boolean;
+#define true 1;
+#define false 0;
+
 size_t getNumberOfLinesInFile(char *fileName);
 
 struct Node{
@@ -32,21 +36,28 @@ size_t getNumberOfLinesInFile(char *fileName){
 		if(ch == '\n'){
 			lines++;
 		}
-	}while(ch != EOF);
+	} while(ch != EOF);
 
 	fclose(file);
 	return lines;
 }
 
+boolean ignorableCharacter(char c){
+	return true;
+}
+
 void convertFile(char *fileName){
 	FILE *inputFile = fopen(fileName, "r");
 	FILE *outputFile = fopen(strcat("new_", fileName), "w");
-	char *buffer;
+	char ch;
 
 	do{
 		ch = fgetc(inputFile);
 		if(ch == ' '){
-			fwrite('\n', 1, outputFile);
+			fwrite('\n', 1, sizeof(char), outputFile);
+		}
+		else if(!ignorableCharacter(ch)){
+			//write char to file
 		}
 
 	}while(ch != EOF);
