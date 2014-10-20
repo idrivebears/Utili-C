@@ -26,6 +26,9 @@ struct Container{
 	struct Node lastElement;
 };
 
+/*Returns the number of lines in formatted file
+ * This function is used to calculate the hashtable size
+ * */
 size_t getNumberOfLinesInFile(char *fileName){
 	FILE *file = fopen(fileName, "r");
 	size_t lines = 0;
@@ -42,26 +45,50 @@ size_t getNumberOfLinesInFile(char *fileName){
 	return lines;
 }
 
+/*Makes sure character isnt ( ) , . : ; " ', etc
+ * Fix: find more elegant way of doing this
+ * */
 boolean ignorableCharacter(char c){
-	return true;
+	if (c == '(' ||c == ')' ||c == '.' ||c == ',' ||c == ':' ||c == ';' ||c == '[' ||c == ']' ||c == '/' ||c == '!' ||c == '?' ||c == '\"' ||c == '\'' ||c == '/' ||c == '-' ||c == '@') return true;
+	return false;
 }
 
+/*Converts a normal text file into a list of words separated by '\n' characters*/
 void convertFile(char *fileName){
-	FILE *inputFile = fopen(fileName, "r");
-	FILE *outputFile = fopen(strcat("new_", fileName), "w");
 	char ch;
+	char fullFileName[64];
+	strcpy(fullFileName, "new_");
+	strcat(fullFileName, fileName);
+
+	FILE *inputFile;
+	FILE *outputFile;
+
+	if(!fopen(fullFileName, "w")){
+		printf("Error converting file: output file could not be opened.\n");
+		return;
+	}
+
+	if(!fopen(fileName, "r+")){
+		printf("Error converting file: input file could not be opened.\n");
+		return;
+	}
+
+
 
 	do{
 		ch = fgetc(inputFile);
 		if(ch == ' '){
-			fwrite('\n', 1, sizeof(char), outputFile);
+			fputc('\n', outputFile);
 		}
 		else if(!ignorableCharacter(ch)){
 			//write char to file
+			fputc(ch, outputFile);
 		}
 
 	}while(ch != EOF);
 
+	fclose(inputFile);
+	fclose(outputFile);
 }
 
 
@@ -71,9 +98,8 @@ void convertFile(char *fileName){
 int main(){
 
 	char *fileName = "words.txt";
-	int lines;
-	printf("Indexing: %s ...\n", fileName);
-	scanf("%c");
+	//printf("Indexing: %s ...\n", fileName);
+	convertFile("test.txt");
 	return 0;
 }
 
