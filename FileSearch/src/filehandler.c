@@ -47,6 +47,7 @@ boolean ignorableCharacter(char c){
 void convertFile(char *fileName){
 	char ch;
 	char fullFileName[64];
+	//We make a new file name with new_xxxx.ext for the reorganized file
 	strcpy(fullFileName, "new_");
 	strcat(fullFileName, fileName);
 
@@ -55,12 +56,10 @@ void convertFile(char *fileName){
 
 	if(!(outputFile = fopen(fullFileName, "w"))){
 		printf("Error converting file: output file could not be opened.\n");
-		perror(fullFileName);
 	}
 
 	else if(!(inputFile = fopen(fileName, "r+"))){
 		printf("Error converting file: input file could not be opened.\n");
-		perror(fileName);
 	}
 	else{
 		do{
@@ -78,12 +77,4 @@ void convertFile(char *fileName){
 	fclose(inputFile);
 	fclose(outputFile);
 }
-
-int main(){
-
-	//printf("Indexing: %s ...\n", fileName);
-	convertFile("test.txt");
-	return 0;
-}
-
 
