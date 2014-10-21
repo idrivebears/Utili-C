@@ -7,12 +7,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "filehandler.h"
 
 #define MAX_WORD_SIZE 64
 
+#define true 1
+#define false 0
+
 typedef int boolean;
-#define true 1;
-#define false 0;
 
 struct Node{
 	char word[MAX_WORD_SIZE];
@@ -24,12 +26,10 @@ struct Container{
 	struct Node *firstElement;
 	struct Node *lastElement;
 };
-/*
-int main(){
 
-	//printf("Indexing: %s ...\n", fileName);
-	convertFile("test.txt");
+int main(){
+	reverseConvertFile("wordsEn.txt");
 	return 0;
-}*/
+}
 
 
