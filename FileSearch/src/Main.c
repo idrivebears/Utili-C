@@ -28,6 +28,11 @@ struct Container{
 };
 
 int main(){
+
+	struct Container hashTable[getNumberOfLinesInFile("words.txt")];
+
+
+
 	reverseConvertFile("wordsEn.txt");
 	return 0;
 }
