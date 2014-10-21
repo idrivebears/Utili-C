@@ -10,6 +10,12 @@
 #include <stdlib.h>
 #include "Vector.h"
 
+struct vector0{
+	int usedSize;
+	int maxSize;
+	int* data;
+};
+
 int vAdd(Vector* vector, int newElement){
 	if(!(vector->data)){
 		//the vector is empty, def init maxSize is 30
@@ -67,6 +73,12 @@ int* vMin(Vector* v){
 			*min = *(v->data+i);
 	}
 	return min;
+}
+int* vIntAt(Vector* v, int index){
+	if(index < 0 || index >= v->usedSize) return NULL;
+	int* num = (int*)(malloc(sizeof(int)));
+	*num = *(v->data+index);
+	return num;
 }
 Vector* newVector(){
 	Vector* v = (Vector*)(malloc(sizeof(Vector)));

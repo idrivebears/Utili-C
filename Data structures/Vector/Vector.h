@@ -12,17 +12,13 @@
 #define GROWTH_MOD 2
 
 typedef struct vector0 Vector;
-struct vector0{
-	int usedSize;
-	int maxSize;
-	int* data;
-};
 
 int vAdd(Vector* vector, int newElement);
 int vEdit(Vector* vector, int index, int newValue);
 int vSizeof(Vector* vector);
 int* vMax(Vector* vector);
 int* vMin(Vector* vector);
+int* vIntAt(Vector* v, int index);
 Vector* newVector();
 Vector* vClone(Vector* vector);
 Vector* vCloneTo(Vector* vector, int limit);
