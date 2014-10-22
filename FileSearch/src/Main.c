@@ -30,7 +30,7 @@ struct Container{
 int main(){
 
 	struct Container hashTable[getNumberOfLinesInFile("words.txt")];
-
+	printf("%d", getNumberOfLinesInFile("wordsEn.txt"));
 
 
 	reverseConvertFile("wordsEn.txt");
