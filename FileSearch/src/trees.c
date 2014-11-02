@@ -5,14 +5,13 @@
 
 #define true 1
 #define false 0
-#define TREE_SIZE 100000
 
 typedef int boolean;
 
-void destroy_tree(struct Node *node){
+void delete_tree(struct Node *node){
 	if (node != NULL){
-		destroy_tree(node->right);
-		destroy_tree(node->left);
+		delete_tree(node->right);
+		delete_tree(node->left);
 		free(node);
 	}
 }
@@ -32,10 +31,24 @@ int size(struct Node *tree){
 	else return 0;
 }
 
+int max_value(struct Node *tree){
+	if(tree->right != NULL){
+		max_value(tree->right);
+	}
+	else return tree->key;
+}
+
+int min_value(struct Node *tree){
+	if(tree->left != NULL){
+		max_value(tree->left);
+	}
+	else return tree->key;
+}
 
 void search_tree(int search_item, struct Node *tree){
+	//printf("Searching for %d\n", search_item);
 	if (tree != NULL){
-		printf("Searching...\n");
+		
 		if (search_item == tree->key){
 			printf("Item found.\n");
 		}
